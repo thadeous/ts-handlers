@@ -58,10 +58,6 @@ class AlbertHandler(BaseHandler):
         return torch.tensor(encoded, dtype=torch.long).unsqueeze(0)
 
     def postprocess(self, data):
-        print(data[1].shape)
-        print(data[1].squeeze(0).shape)
-        print(data[1].squeeze(0).argmax(-1).shape)
-        print(data[1].squeeze(0).argmax(-1).tolist())
         entity_labels = " ".join([str(v) for v in data[1].squeeze(0).argmax(-1).tolist()])
         return [f"Intent: {str(data[0].argmax(-1).item())} Slots: {entity_labels}"]
 
